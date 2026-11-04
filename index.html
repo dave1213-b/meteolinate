@@ -3,68 +3,114 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1e5fd0">
 <title>Meteo Linate Paese</title>
 <style>
-:root{--bg:#eef3f8;--card:#fff;--tx:#14202e;--mu:#667689;--ac:#1f6feb;--warn:#c2410c;color-scheme:light;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1620;--card:#16222f;--tx:#e8eef5;--mu:#8fa1b5;--ac:#5aa2ff;--warn:#fb923c;color-scheme:dark}}
+:root{--bg:#eaf0f8;--card:#fff;--tx:#12202f;--mu:#6a7b8e;--ac:#1f6feb;--line:#e3eaf3;--ic:#e6f0ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b131c;--card:#15212e;--tx:#e9eff6;--mu:#8ea0b4;--ac:#6aaeff;--line:#233446;--ic:#1e3350;color-scheme:dark}}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:16px;max-width:560px;margin:0 auto}
-header{text-align:center;padding:8px 0 16px}
-h1{font-size:18px;margin:0;font-weight:600}
-.sub{color:var(--mu);font-size:13px}
-.hero{background:var(--card);border-radius:20px;padding:20px;text-align:center;margin-bottom:12px}
-.big{font-size:72px;font-weight:300;line-height:1}
-.mm{color:var(--mu);margin-top:8px}
-.badge{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--mu);margin-top:10px}
-.badge.old{color:var(--warn)}
+body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:560px;margin:0 auto;padding:0 14px 20px}
+.hero{margin:0 -14px 14px;padding:34px 20px 28px;color:#fff;text-align:center;border-radius:0 0 32px 32px;background:linear-gradient(160deg,#2f8cff,#1647b8);position:relative;overflow:hidden}
+.hero.night{background:linear-gradient(160deg,#27386b,#0c1430)}
+.hero.rain{background:linear-gradient(160deg,#6b7f96,#2f3f55)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.1)}
+.pre{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+h1{margin:4px 0 0;font-size:44px;line-height:1.05;font-weight:800;letter-spacing:-.02em}
+.prov{font-size:14px;opacity:.85;margin-top:2px}
+.big{font-size:96px;font-weight:200;line-height:1;margin:22px 0 6px;position:relative}
+.stato{font-size:17px;font-weight:500;position:relative}
+.mm{display:flex;justify-content:center;gap:18px;margin-top:12px;font-size:15px;position:relative}
+.mm span{background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px}
+.badge{display:inline-block;margin-top:16px;font-size:12px;padding:4px 12px;border-radius:99px;background:rgba(0,0,0,.25);position:relative}
+.badge.old{background:#c2410c}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.c{background:var(--card);border-radius:16px;padding:14px}
-.c h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu);margin:0 0 6px;font-weight:600}
-.v{font-size:28px;font-weight:500}
-.v small{font-size:14px;color:var(--mu);font-weight:400}
-.d{font-size:12px;color:var(--mu);margin-top:6px}
-.arrow{display:inline-block;transition:transform .3s}
-details{margin-top:16px}
-summary{cursor:pointer;color:var(--ac);padding:8px 0}
-.gr img{width:100%;border-radius:12px;margin:6px 0;background:var(--card)}
-footer{text-align:center;color:var(--mu);font-size:12px;margin:24px 0 8px}
-footer a{color:var(--ac)}
+.c{background:var(--card);border-radius:20px;padding:14px;box-shadow:0 1px 0 var(--line)}
+.c.w{grid-column:1/-1}
+.hd{display:flex;align-items:center;gap:8px;color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.ic{width:30px;height:30px;border-radius:10px;background:var(--ic);color:var(--ac);display:grid;place-items:center;flex:none}
+.ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.v{font-size:32px;font-weight:600;margin-top:8px;line-height:1}
+.v small{font-size:14px;font-weight:400;color:var(--mu)}
+.d{font-size:12px;color:var(--mu);margin-top:8px}
+.bar{height:8px;border-radius:9px;background:var(--line);margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#6aaeff,#1f6feb);border-radius:9px}
+.wr{display:flex;align-items:center;gap:16px}
+.comp{width:84px;height:84px;flex:none}
+.comp circle{fill:none;stroke:var(--line);stroke-width:3}
+.comp text{fill:var(--mu);font-size:11px;font-weight:600;text-anchor:middle}
+.comp .ar{fill:var(--ac);transition:transform .4s;transform-origin:50px 50px}
+h3{font-size:14px;margin:22px 2px 8px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+.gr img{width:100%;border-radius:14px;margin:0 0 10px;background:var(--card)}
+.src{margin-top:24px;background:var(--card);border-radius:20px;padding:16px;font-size:13px;color:var(--mu);line-height:1.5}
+.src b{color:var(--tx)}
+.src a{color:var(--ac)}
 </style>
 </head>
 <body>
-<header><h1>Linate Paese (MI)</h1><div class="sub">Stazione Davis Vantage Pro2 · 103 m s.l.m.</div></header>
+<section class="hero" id="hero">
+  <div class="pre">Meteo in diretta</div>
+  <h1>Linate Paese</h1>
+  <div class="prov">Peschiera Borromeo · Milano · 103 m s.l.m.</div>
+  <div class="big" id="big">–°</div>
+  <div class="stato" id="stato"></div>
+  <div class="mm"><span id="mx"></span><span id="mn"></span></div>
+  <span class="badge" id="badge"></span>
+</section>
 <main id="app"></main>
-<footer>Dati: <a href="https://retemeteolombardia.altervista.org/linate/station.htm">Rete Meteo Lombardia</a> · Sito non ufficiale</footer>
+<section class="src">
+  <b>Fonte dei dati</b><br>
+  I dati meteo sono rilevati dalla stazione Davis Vantage Pro2 di Linate Paese e pubblicati da
+  <a href="https://retemeteolombardia.altervista.org/linate/station.htm"><b>Rete Meteo Lombardia</b></a>,
+  a cura di Michele Boncristiano e Luca Ceresa. Questa pagina è solo una vista alternativa, pensata per gli smartphone, e rimanda alla fonte originale per le informazioni complete e lo storico.
+</section>
 <script>
-// Dati di esempio, usati solo se data.json non è raggiungibile
 var FALLBACK={"temp":{"now":"13.2","max":"13.3","maxT":"15:19","min":"9.6","minT":"6:20"},"hum":{"now":"69","max":"80","min":"68"},"dew":{"now":"7.6"},"press":{"now":"1023.9","max":"1024.6","min":"1021.5"},"rain":{"now":"0.0","event":"0.0","month":"0.0","year":"579.1"},"rate":{"now":"0.0"},"heat":{"now":"12.7"},"wind":{"now":"9.7","dir":"NNE","max":"17.7","maxT":"11:54","avg":"9.7","gustM":"24.1","gustY":"70.8"},"chill":{"now":"12.4"},"time":"15:33","date":"04/11/26","sunrise":"7:08","sunset":"17:07","demo":true};
 var B="https://retemeteolombardia.altervista.org/linate/";
 var DIRS={N:0,NNE:22.5,NE:45,ENE:67.5,E:90,ESE:112.5,SE:135,SSE:157.5,S:180,SSO:202.5,SSW:202.5,SO:225,SW:225,OSO:247.5,WSW:247.5,O:270,W:270,ONO:292.5,WNW:292.5,NO:315,NW:315,NNO:337.5,NNW:337.5};
-function $(s){return document.createElement(s)}
+var I={
+ th:'<path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/>',
+ dr:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+ rn:'<path d="M7 15a4 4 0 0 1 .5-8 5.5 5.5 0 0 1 10.5 1.5A3.5 3.5 0 0 1 17.5 15H7z"/><path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3"/>',
+ wd:'<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
+ ga:'<path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 14l4-5"/>',
+ sr:'<path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 5v5M9 7l3-3 3 3"/>',
+ ss:'<path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 4v6M9 8l3 3 3-3"/>',
+ sp:'<path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l3-4"/><path d="M6 19h12"/>'};
 function v(o,k){return o&&o[k]!=null?o[k]:"–"}
-function card(t,val,u,d){return '<div class="c"><h2>'+t+'</h2><div class="v">'+val+' <small>'+u+'</small></div>'+(d?'<div class="d">'+d+'</div>':'')+'</div>'}
+function hd(i,t){return '<div class="hd"><span class="ic"><svg viewBox="0 0 24 24">'+I[i]+'</svg></span>'+t+'</div>'}
+function card(i,t,val,u,d,x,w){return '<div class="c'+(w?' w':'')+'">'+hd(i,t)+'<div class="v">'+val+' <small>'+u+'</small></div>'+(x||'')+(d?'<div class="d">'+d+'</div>':'')+'</div>'}
+function mins(s){var p=(s||"").split(":");return p.length==2?+p[0]*60+ +p[1]:null}
+function compass(ang,dir){
+ return '<svg class="comp" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><text x="50" y="17">N</text><text x="86" y="54">E</text><text x="50" y="92">S</text><text x="14" y="54">O</text>'
+ +'<g class="ar" style="transform:rotate('+((ang||0)+180)+'deg)"><path d="M50 22L58 54H42z"/><rect x="47" y="54" width="6" height="18" rx="3"/></g></svg>'}
 function render(D){
   var t=D.temp||{},w=D.wind||{},r=D.rain||{},ang=DIRS[w.dir];
-  var badge='Aggiornato alle '+D.time+' del '+D.date,old='';
-  if(D.demo){badge='Dati dimostrativi ('+D.time+')';old=' old'}
-  else if(D.fetched){var m=(Date.now()-new Date(D.fetched))/60000;if(m>45){old=' old';badge+=' · dati non freschi'}}
-  var h='<section class="hero"><div class="big">'+v(t,"now")+'°</div>'
-   +'<div class="mm">▲ '+v(t,"max")+'° &nbsp; ▼ '+v(t,"min")+'°</div>'
-   +'<div class="mm">Percepita '+v(D.chill,"now")+'°</div>'
-   +'<span class="badge'+old+'">'+badge+'</span></section><div class="grid">'
-   +card("Umidità",v(D.hum,"now"),"%","Min "+v(D.hum,"min")+"% · Max "+v(D.hum,"max")+"%")
-   +card("Pioggia oggi",v(r,"now"),"mm","Mese "+v(r,"month")+" · Anno "+v(r,"year")+" mm")
-   +card("Vento",v(w,"now"),"km/h",(ang!=null?'<span class="arrow" style="transform:rotate('+(ang+180)+'deg)">↑</span> ':'')+v(w,"dir")+" · raffica oggi "+v(w,"max")+" km/h")
-   +card("Pressione",v(D.press,"now"),"hPa","Min "+v(D.press,"min")+" · Max "+v(D.press,"max"))
-   +card("Punto di rugiada",v(D.dew,"now"),"°C","")
-   +card("Intensità pioggia",v(D.rate,"now"),"mm/h","")
-   +card("Alba",D.sunrise||"–","","")
-   +card("Tramonto",D.sunset||"–","","")
-   +'</div><details><summary>Grafici ultime 24 ore</summary><div class="gr">'
-   +["OutsideTempHistory","OutsideHumidityHistory","RainHistory","BarometerHistory","WindSpeedHistory"].map(function(n){return '<img loading="lazy" src="'+B+n+'.gif" alt="'+n+'" onerror="this.remove()">'}).join("")
-   +'</div></details>';
+  var hero=document.getElementById("hero"),cur=mins(D.time),sr=mins(D.sunrise),ss=mins(D.sunset);
+  var piove=parseFloat(r.now)>0||parseFloat((D.rate||{}).now)>0;
+  hero.className="hero"+(piove?" rain":(cur!=null&&sr!=null&&(cur<sr||cur>ss)?" night":""));
+  document.getElementById("big").textContent=v(t,"now")+"°";
+  document.getElementById("stato").textContent=piove?"Pioggia in corso":"Nessuna pioggia in corso";
+  document.getElementById("mx").textContent="▲ "+v(t,"max")+"° alle "+v(t,"maxT");
+  document.getElementById("mn").textContent="▼ "+v(t,"min")+"° alle "+v(t,"minT");
+  var b=document.getElementById("badge"),txt="Aggiornato alle "+D.time+" del "+D.date;
+  if(D.demo){txt="Dati dimostrativi ("+D.time+")";b.className="badge old"}
+  else if(D.fetched&&(Date.now()-new Date(D.fetched))/60000>45){txt+=" · dati non freschi";b.className="badge old"}
+  b.textContent=txt;
+  var h='<div class="grid">'
+   +card("th","Percepita",v(D.chill,"now"),"°C","Indice di calore "+v(D.heat,"now")+"°C")
+   +card("dr","Umidità",v(D.hum,"now"),"%","Min "+v(D.hum,"min")+"% · Max "+v(D.hum,"max")+"%",'<div class="bar"><i style="width:'+(parseFloat(v(D.hum,"now"))||0)+'%"></i></div>')
+   +card("rn","Pioggia oggi",v(r,"now"),"mm","Mese "+v(r,"month")+" mm · Anno "+v(r,"year")+" mm")
+   +card("sp","Intensità",v(D.rate,"now"),"mm/h","")
+   +'<div class="c w">'+hd("wd","Vento")+'<div class="wr">'+compass(ang,w.dir)+'<div><div class="v">'+v(w,"now")+' <small>km/h '+v(w,"dir")+'</small></div>'
+   +'<div class="d">Media 10 min: '+v(w,"avg")+' km/h<br>Massima oggi: '+v(w,"max")+' km/h alle '+v(w,"maxT")+'<br>Raffica massima del mese: '+v(w,"gustM")+' km/h</div></div></div></div>'
+   +card("ga","Pressione",v(D.press,"now"),"hPa","Min "+v(D.press,"min")+" · Max "+v(D.press,"max"))
+   +card("dr","Punto di rugiada",v(D.dew,"now"),"°C","")
+   +card("sr","Alba",D.sunrise||"–","","")
+   +card("ss","Tramonto",D.sunset||"–","","")
+   +'</div><h3>Grafici ultime 24 ore</h3><div class="gr">'
+   +["OutsideTempHistory","OutsideHumidityHistory","RainHistory","BarometerHistory","WindSpeedHistory"].map(function(n){return '<img loading="lazy" src="'+B+n+'.gif" alt="Grafico '+n+'" onerror="this.remove()">'}).join("")+'</div>';
   document.getElementById("app").innerHTML=h;
 }
 fetch("data.json?"+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(render).catch(function(){render(FALLBACK)});
