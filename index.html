@@ -151,13 +151,13 @@ function render(D){
   document.getElementById("app").innerHTML=h;
   if(was)document.querySelector("details").open=true;
 }
-var API=""; // indirizzo del Worker Cloudflare (dati in tempo reale)
-function getJ(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()})}
+var API="https://api.github.com/repos/dave1213-b/meteolinate/contents/data.json?ref=dati";
+function getJ(u,h){return fetch(u,h?{headers:h}:undefined).then(function(r){if(!r.ok)throw 0;return r.json()})}
 function load(){
-  (API?getJ(API):Promise.reject()).catch(function(){return getJ("data.json?"+Date.now())}).then(render).catch(function(){render(FALLBACK)});
+  getJ(API,{"Accept":"application/vnd.github.raw+json"}).catch(function(){return getJ("data.json?"+Date.now())}).then(render).catch(function(){render(FALLBACK)});
 }
 load();
-setInterval(load,30000);
+setInterval(load,60000);
 document.addEventListener("visibilitychange",function(){if(!document.hidden)load()});
 </script>
 </body>
