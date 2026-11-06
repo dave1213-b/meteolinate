@@ -1,19 +1,37 @@
 name: Aggiorna dati meteo
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: meteo
+  cancel-in-progress: false
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - run: python scrape.py
-      - name: Commit
+      - uses: actions/checkout@v4
+        with:
+          ref: dati
+          path: dati
+      - name: Leggi i dati ogni minuto per circa 9 minuti
         run: |
-          git config user.name "meteo-bot"
-          git config user.email "bot@users.noreply.github.com"
-          git add data.json
-          git diff --staged --quiet || (git commit -m "dati $(date -u +%H:%M)" && git push)
+          git config --global user.name "meteo-bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8 9; do
+            python scrape.py || true
+            cp data.json dati/data.json
+            cd dati
+            git add data.json
+            if ! git diff --staged --quiet; then
+              git commit -qm "dati $(date -u +%H:%M)"
+              git pull --rebase -q || true
+              git push -q || true
+            fi
+            cd ..
+            sleep 55
+          done
