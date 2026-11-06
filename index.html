@@ -3,27 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1e5fd0">
 <title>Meteo Linate Paese</title>
 <style>
-:root{--bg:#eaf0f8;--card:#fff;--tx:#12202f;--mu:#6a7b8e;--ac:#1f6feb;--line:#e3eaf3;--ic:#e6f0ff;
+:root{--bg:#eef3f9;--card:#fff;--tx:#12202f;--mu:#667689;--ac:#1f6feb;--line:#e3eaf3;--ic:#e6f0ff;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b131c;--card:#15212e;--tx:#e9eff6;--mu:#8ea0b4;--ac:#6aaeff;--line:#233446;--ic:#1e3350;color-scheme:dark}}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:560px;margin:0 auto;padding:0 14px 20px}
-.hero{margin:0 -14px 14px;padding:34px 20px 28px;color:#fff;text-align:center;border-radius:0 0 32px 32px;background:linear-gradient(160deg,#2f8cff,#1647b8);position:relative;overflow:hidden}
-.hero.night{background:linear-gradient(160deg,#27386b,#0c1430)}
-.hero.rain{background:linear-gradient(160deg,#6b7f96,#2f3f55)}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.1)}
-.pre{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
-h1{margin:4px 0 0;font-size:44px;line-height:1.05;font-weight:800;letter-spacing:-.02em}
-.prov{font-size:14px;opacity:.85;margin-top:2px}
-.big{font-size:96px;font-weight:200;line-height:1;margin:22px 0 6px;position:relative}
-.stato{font-size:17px;font-weight:500;position:relative}
-.mm{display:flex;justify-content:center;gap:18px;margin-top:12px;font-size:15px;position:relative}
-.mm span{background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px}
-.badge{display:inline-block;margin-top:16px;font-size:12px;padding:4px 12px;border-radius:99px;background:rgba(0,0,0,.25);position:relative}
+.hero{--t:#fff;margin:0 -14px 14px;padding:30px 20px 26px;color:var(--t);text-align:center;border-radius:0 0 34px 34px;position:relative;overflow:hidden;min-height:380px;transition:background .5s}
+.hero.alba{background:linear-gradient(180deg,#5b6fd6,#f29fb0 55%,#ffd08a)}
+.hero.giorno{background:linear-gradient(180deg,#6cc0ff,#d6efff);--t:#0b2a4a}
+.hero.tramonto{background:linear-gradient(180deg,#2c3e8f,#d9607a 60%,#ffb36b)}
+.hero.notte{background:linear-gradient(180deg,#0a1230,#2a3a78)}
+.hero.pioggia{background:linear-gradient(180deg,#5d6b7e,#9aa6b5)}
+.hero.pioggia.notte{background:linear-gradient(180deg,#141b27,#2b3646)}
+.scene{position:absolute;inset:0;width:100%;height:100%}
+.scene .tw{animation:tw 2.5s infinite alternate}
+.scene .dr{animation:fall .9s linear infinite}
+@keyframes tw{from{opacity:.3}to{opacity:1}}
+@keyframes fall{from{transform:translateY(-20px);opacity:0}30%{opacity:.8}to{transform:translateY(60px);opacity:0}}
+.in{position:relative}
+.pre{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+h1{margin:4px 0 0;font-size:46px;line-height:1.05;font-weight:800;letter-spacing:-.02em}
+.prov{font-size:14px;opacity:.9;margin-top:2px}
+.big{font-size:100px;font-weight:200;line-height:1;margin:46px 0 6px}
+.stato{font-size:18px;font-weight:600}
+.mm{display:flex;justify-content:center;gap:10px;margin-top:12px;font-size:14px;flex-wrap:wrap}
+.mm span{background:rgba(255,255,255,.22);padding:4px 12px;border-radius:99px}
+.hero.giorno .mm span{background:rgba(255,255,255,.55)}
+.badge{display:inline-block;margin-top:16px;font-size:12px;padding:4px 12px;border-radius:99px;background:rgba(0,0,0,.25);color:#fff}
 .badge.old{background:#c2410c}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .c{background:var(--card);border-radius:20px;padding:14px;box-shadow:0 1px 0 var(--line)}
@@ -31,9 +40,10 @@ h1{margin:4px 0 0;font-size:44px;line-height:1.05;font-weight:800;letter-spacing
 .hd{display:flex;align-items:center;gap:8px;color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
 .ic{width:30px;height:30px;border-radius:10px;background:var(--ic);color:var(--ac);display:grid;place-items:center;flex:none}
 .ic svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.v{font-size:32px;font-weight:600;margin-top:8px;line-height:1}
+.v{font-size:30px;font-weight:600;margin-top:8px;line-height:1}
 .v small{font-size:14px;font-weight:400;color:var(--mu)}
-.d{font-size:12px;color:var(--mu);margin-top:8px}
+.p{font-size:15px;font-weight:600;margin-top:6px}
+.d{font-size:12px;color:var(--mu);margin-top:4px}
 .bar{height:8px;border-radius:9px;background:var(--line);margin-top:10px;overflow:hidden}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,#6aaeff,#1f6feb);border-radius:9px}
 .wr{display:flex;align-items:center;gap:16px}
@@ -41,22 +51,28 @@ h1{margin:4px 0 0;font-size:44px;line-height:1.05;font-weight:800;letter-spacing
 .comp circle{fill:none;stroke:var(--line);stroke-width:3}
 .comp text{fill:var(--mu);font-size:11px;font-weight:600;text-anchor:middle}
 .comp .ar{fill:var(--ac);transition:transform .4s;transform-origin:50px 50px}
-h3{font-size:14px;margin:22px 2px 8px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
-.gr img{width:100%;border-radius:14px;margin:0 0 10px;background:var(--card)}
-.src{margin-top:24px;background:var(--card);border-radius:20px;padding:16px;font-size:13px;color:var(--mu);line-height:1.5}
+details{margin-top:14px;background:var(--card);border-radius:20px;padding:4px 14px}
+summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--ac);list-style:none}
+summary::after{content:"▾";float:right}
+details[open] summary::after{content:"▴"}
+details img{width:100%;border-radius:14px;margin:0 0 10px;background:var(--bg)}
+.src{margin-top:20px;background:var(--card);border-radius:20px;padding:16px;font-size:13px;color:var(--mu);line-height:1.5}
 .src b{color:var(--tx)}
 .src a{color:var(--ac)}
 </style>
 </head>
 <body>
 <section class="hero" id="hero">
-  <div class="pre">Meteo in diretta</div>
-  <h1>Linate Paese</h1>
-  <div class="prov">Peschiera Borromeo · Milano · 103 m s.l.m.</div>
-  <div class="big" id="big">–°</div>
-  <div class="stato" id="stato"></div>
-  <div class="mm"><span id="mx"></span><span id="mn"></span></div>
-  <span class="badge" id="badge"></span>
+  <svg class="scene" id="scene" viewBox="0 0 400 380" preserveAspectRatio="xMidYMid slice"></svg>
+  <div class="in">
+    <div class="pre">Meteo in diretta</div>
+    <h1>Linate Paese</h1>
+    <div class="prov">Peschiera Borromeo · Milano</div>
+    <div class="big" id="big">–°</div>
+    <div class="stato" id="stato"></div>
+    <div class="mm"><span id="mx"></span><span id="mn"></span></div>
+    <span class="badge" id="badge"></span>
+  </div>
 </section>
 <main id="app"></main>
 <section class="src">
@@ -69,51 +85,80 @@ h3{font-size:14px;margin:22px 2px 8px;color:var(--mu);text-transform:uppercase;l
 var FALLBACK={"temp":{"now":"13.2","max":"13.3","maxT":"15:19","min":"9.6","minT":"6:20"},"hum":{"now":"69","max":"80","min":"68"},"dew":{"now":"7.6"},"press":{"now":"1023.9","max":"1024.6","min":"1021.5"},"rain":{"now":"0.0","event":"0.0","month":"0.0","year":"579.1"},"rate":{"now":"0.0"},"heat":{"now":"12.7"},"wind":{"now":"9.7","dir":"NNE","max":"17.7","maxT":"11:54","avg":"9.7","gustM":"24.1","gustY":"70.8"},"chill":{"now":"12.4"},"time":"15:33","date":"04/11/26","sunrise":"7:08","sunset":"17:07","demo":true};
 var B="https://retemeteolombardia.altervista.org/linate/";
 var DIRS={N:0,NNE:22.5,NE:45,ENE:67.5,E:90,ESE:112.5,SE:135,SSE:157.5,S:180,SSO:202.5,SSW:202.5,SO:225,SW:225,OSO:247.5,WSW:247.5,O:270,W:270,ONO:292.5,WNW:292.5,NO:315,NW:315,NNO:337.5,NNW:337.5};
-var I={
- th:'<path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/>',
- dr:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
- rn:'<path d="M7 15a4 4 0 0 1 .5-8 5.5 5.5 0 0 1 10.5 1.5A3.5 3.5 0 0 1 17.5 15H7z"/><path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3"/>',
- wd:'<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
- ga:'<path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 14l4-5"/>',
- sr:'<path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 5v5M9 7l3-3 3 3"/>',
- ss:'<path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 4v6M9 8l3 3 3-3"/>',
- sp:'<path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l3-4"/><path d="M6 19h12"/>'};
+var NOMI={N:"Nord",NNE:"Nord-Nord-Est",NE:"Nord-Est",ENE:"Est-Nord-Est",E:"Est",ESE:"Est-Sud-Est",SE:"Sud-Est",SSE:"Sud-Sud-Est",S:"Sud",SSO:"Sud-Sud-Ovest",SSW:"Sud-Sud-Ovest",SO:"Sud-Ovest",SW:"Sud-Ovest",OSO:"Ovest-Sud-Ovest",WSW:"Ovest-Sud-Ovest",O:"Ovest",W:"Ovest",ONO:"Ovest-Nord-Ovest",WNW:"Ovest-Nord-Ovest",NO:"Nord-Ovest",NW:"Nord-Ovest",NNO:"Nord-Nord-Ovest",NNW:"Nord-Nord-Ovest"};
+var I={th:'<path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/>',dr:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',rn:'<path d="M7 15a4 4 0 0 1 .5-8 5.5 5.5 0 0 1 10.5 1.5A3.5 3.5 0 0 1 17.5 15H7z"/><path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3"/>',wd:'<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',ga:'<path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 14l4-5"/>',sr:'<path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 5v5M9 7l3-3 3 3"/>',ss:'<path d="M3 19h18M7 19a5 5 0 0 1 10 0M12 4v6M9 8l3 3 3-3"/>'};
 function v(o,k){return o&&o[k]!=null?o[k]:"–"}
+function f(x){return parseFloat(x)}
 function hd(i,t){return '<div class="hd"><span class="ic"><svg viewBox="0 0 24 24">'+I[i]+'</svg></span>'+t+'</div>'}
-function card(i,t,val,u,d,x,w){return '<div class="c'+(w?' w':'')+'">'+hd(i,t)+'<div class="v">'+val+' <small>'+u+'</small></div>'+(x||'')+(d?'<div class="d">'+d+'</div>':'')+'</div>'}
+function card(i,t,val,u,p,d,x,w){return '<div class="c'+(w?' w':'')+'">'+hd(i,t)+'<div class="v">'+val+' <small>'+u+'</small></div>'+(p?'<div class="p">'+p+'</div>':'')+(x||'')+(d?'<div class="d">'+d+'</div>':'')+'</div>'}
 function mins(s){var p=(s||"").split(":");return p.length==2?+p[0]*60+ +p[1]:null}
-function compass(ang,dir){
- return '<svg class="comp" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><text x="50" y="17">N</text><text x="86" y="54">E</text><text x="50" y="92">S</text><text x="14" y="54">O</text>'
- +'<g class="ar" style="transform:rotate('+((ang||0)+180)+'deg)"><path d="M50 22L58 54H42z"/><rect x="47" y="54" width="6" height="18" rx="3"/></g></svg>'}
+function pick(x,a){for(var i=0;i<a.length;i++)if(x<a[i][0])return a[i][1];return a[a.length-1][1]}
+function cloud(x,y,s,c,o){return '<g transform="translate('+x+' '+y+') scale('+s+')" fill="'+c+'" opacity="'+o+'"><ellipse cx="0" cy="0" rx="46" ry="16"/><circle cx="-14" cy="-12" r="17"/><circle cx="14" cy="-18" r="22"/></g>'}
+function scene(ph,rain){
+  var s="",i;
+  if(ph=="notte"){
+    for(i=0;i<22;i++)s+='<circle class="tw" cx="'+((i*97)%400)+'" cy="'+((i*53)%230+10)+'" r="'+(1+i%3*.6)+'" fill="#fff" style="animation-delay:'+(i%7*.4)+'s"/>';
+    if(!rain)s+='<circle cx="310" cy="70" r="46" fill="#f4f1de" opacity=".12"/><path d="M315 40a32 32 0 1 0 26 50a26 26 0 1 1 -26 -50z" fill="#f6f2da"/>';
+  }else if(!rain){
+    var low=ph!="giorno",cx=ph=="alba"?300:(ph=="tramonto"?100:310),cy=low?200:75,c=ph=="giorno"?"#ffd93b":"#ffb347";
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(low?70:62)+'" fill="'+c+'" opacity=".25"/><circle cx="'+cx+'" cy="'+cy+'" r="'+(low?34:30)+'" fill="'+c+'"/>';
+    if(!low)for(i=0;i<12;i++)s+='<line x1="'+cx+'" y1="'+(cy-42)+'" x2="'+cx+'" y2="'+(cy-54)+'" stroke="'+c+'" stroke-width="4" stroke-linecap="round" transform="rotate('+i*30+' '+cx+' '+cy+')"/>';
+    s+=cloud(90,60,.8,"#fff",ph=="giorno"?.9:.35)+cloud(330,150,.6,"#fff",ph=="giorno"?.7:.25);
+  }
+  if(rain){
+    var g=ph=="notte"?"#46546a":"#7d8a9c";
+    s+=cloud(90,70,1.1,g,.95)+cloud(270,55,1.3,g,.95)+cloud(360,120,.9,g,.9);
+    for(i=0;i<26;i++)s+='<line class="dr" x1="'+(i*16+6)+'" y1="'+(150+i%5*18)+'" x2="'+(i*16+1)+'" y2="'+(166+i%5*18)+'" stroke="#cfe6ff" stroke-width="2" stroke-linecap="round" style="animation-delay:'+(i%9*.1)+'s"/>';
+  }
+  return s;
+}
+function compass(ang){return '<svg class="comp" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><text x="50" y="17">N</text><text x="86" y="54">E</text><text x="50" y="92">S</text><text x="14" y="54">O</text><g class="ar" style="transform:rotate('+((ang||0)+180)+'deg)"><path d="M50 22L58 54H42z"/><rect x="47" y="54" width="6" height="18" rx="3"/></g></svg>'}
 function render(D){
   var t=D.temp||{},w=D.wind||{},r=D.rain||{},ang=DIRS[w.dir];
-  var hero=document.getElementById("hero"),cur=mins(D.time),sr=mins(D.sunrise),ss=mins(D.sunset);
-  var piove=parseFloat(r.now)>0||parseFloat((D.rate||{}).now)>0;
-  hero.className="hero"+(piove?" rain":(cur!=null&&sr!=null&&(cur<sr||cur>ss)?" night":""));
+  var cur=mins(D.time),sr=mins(D.sunrise),ss=mins(D.sunset),ph="giorno";
+  if(cur!=null&&sr!=null&&ss!=null){ph=(cur<sr-30||cur>ss+30)?"notte":(cur<=sr+75?"alba":(cur>=ss-75?"tramonto":"giorno"))}
+  var rain=f(r.now)>0||f((D.rate||{}).now)>0;
+  document.getElementById("hero").className="hero "+ph+(rain?" pioggia":"");
+  document.getElementById("scene").innerHTML=scene(ph,rain);
+  var tn=f(t.now),tw=isNaN(tn)?"":pick(tn,[[0,"Gelo"],[10,"Freddo"],[18,"Fresco"],[25,"Mite"],[30,"Caldo"],[99,"Molto caldo"]]);
   document.getElementById("big").textContent=v(t,"now")+"°";
-  document.getElementById("stato").textContent=piove?"Pioggia in corso":"Nessuna pioggia in corso";
-  document.getElementById("mx").textContent="▲ "+v(t,"max")+"° alle "+v(t,"maxT");
-  document.getElementById("mn").textContent="▼ "+v(t,"min")+"° alle "+v(t,"minT");
+  document.getElementById("stato").textContent=rain?"Pioggia in corso":"Nessuna pioggia in corso";
+  document.getElementById("mx").textContent="Massima "+v(t,"max")+"° ("+v(t,"maxT")+")";
+  document.getElementById("mn").textContent="Minima "+v(t,"min")+"° ("+v(t,"minT")+")";
   var b=document.getElementById("badge"),txt="Aggiornato alle "+D.time+" del "+D.date;
   if(D.demo){txt="Dati dimostrativi ("+D.time+")";b.className="badge old"}
   else if(D.fetched&&(Date.now()-new Date(D.fetched))/60000>45){txt+=" · dati non freschi";b.className="badge old"}
   b.textContent=txt;
+  var hu=f(v(D.hum,"now")),pr=f(v(D.press,"now")),wn=f(w.now),ri=f((D.rate||{}).now),rm=f(r.now);
+  var hp=pick(hu,[[30,"Aria secca"],[60,"Aria confortevole"],[80,"Aria umida"],[101,"Molto umido"]]);
+  var pp=pick(pr,[[1000,"Bassa: tempo instabile"],[1020,"Nella norma"],[2000,"Alta: tempo stabile"]]);
+  var wp=pick(wn,[[1,"Calma"],[6,"Bava di vento"],[12,"Brezza leggera"],[20,"Brezza vivace"],[29,"Vento moderato"],[39,"Vento teso"],[50,"Vento forte"],[999,"Burrasca"]]);
+  var rp=ri>0?pick(ri,[[2.5,"Pioggia debole"],[7.6,"Pioggia moderata"],[999,"Pioggia forte"]]):"Nessuna pioggia";
   var h='<div class="grid">'
-   +card("th","Percepita",v(D.chill,"now"),"°C","Indice di calore "+v(D.heat,"now")+"°C")
-   +card("dr","Umidità",v(D.hum,"now"),"%","Min "+v(D.hum,"min")+"% · Max "+v(D.hum,"max")+"%",'<div class="bar"><i style="width:'+(parseFloat(v(D.hum,"now"))||0)+'%"></i></div>')
-   +card("rn","Pioggia oggi",v(r,"now"),"mm","Mese "+v(r,"month")+" mm · Anno "+v(r,"year")+" mm")
-   +card("sp","Intensità",v(D.rate,"now"),"mm/h","")
-   +'<div class="c w">'+hd("wd","Vento")+'<div class="wr">'+compass(ang,w.dir)+'<div><div class="v">'+v(w,"now")+' <small>km/h '+v(w,"dir")+'</small></div>'
-   +'<div class="d">Media 10 min: '+v(w,"avg")+' km/h<br>Massima oggi: '+v(w,"max")+' km/h alle '+v(w,"maxT")+'<br>Raffica massima del mese: '+v(w,"gustM")+' km/h</div></div></div></div>'
-   +card("ga","Pressione",v(D.press,"now"),"hPa","Min "+v(D.press,"min")+" · Max "+v(D.press,"max"))
-   +card("dr","Punto di rugiada",v(D.dew,"now"),"°C","")
-   +card("sr","Alba",D.sunrise||"–","","")
-   +card("ss","Tramonto",D.sunset||"–","","")
-   +'</div><h3>Grafici ultime 24 ore</h3><div class="gr">'
-   +["OutsideTempHistory","OutsideHumidityHistory","RainHistory","BarometerHistory","WindSpeedHistory"].map(function(n){return '<img loading="lazy" src="'+B+n+'.gif" alt="Grafico '+n+'" onerror="this.remove()">'}).join("")+'</div>';
+   +card("th","Percepita",v(D.chill,"now"),"°C","","Indice di calore "+v(D.heat,"now")+"°C")
+   +card("dr","Umidità",v(D.hum,"now"),"%","","Min "+v(D.hum,"min")+"% · Max "+v(D.hum,"max")+"%","<div class=\"bar\"><i style=\"width:"+(hu||0)+"%\"></i></div>")
+   +card("rn","Pioggia oggi",v(r,"now"),"mm","","Mese "+v(r,"month")+" mm · Anno "+v(r,"year")+" mm")
+   +card("rn","Intensità pioggia",v(D.rate,"now"),"mm/h","","")
+   +'<div class="c w">'+hd("wd","Vento")+'<div class="wr">'+compass(ang)+'<div><div class="v">'+v(w,"now")+' <small>km/h</small></div><div class="p">'+v(w,"dir")+'</div>'
+   +'<div class="d">Oggi al massimo '+v(w,"max")+' km/h (alle '+v(w,"maxT")+')<br>Raffica più forte del mese: '+v(w,"gustM")+' km/h</div></div></div></div>'
+   +card("ga","Pressione",v(D.press,"now"),"hPa","","Min "+v(D.press,"min")+" · Max "+v(D.press,"max"))
+   +card("dr","Punto di rugiada",v(D.dew,"now"),"°C","","")
+   +card("sr","Alba",D.sunrise||"–","","","")
+   +card("ss","Tramonto",D.sunset||"–","","","")
+   +'</div><details><summary>Grafici delle ultime 24 ore</summary>'
+   +[["OutsideTempHistory","Temperatura"],["OutsideHumidityHistory","Umidità"],["RainHistory","Pioggia"],["BarometerHistory","Pressione"],["WindSpeedHistory","Vento"]].map(function(n){return '<img loading="lazy" src="'+B+n[0]+'.gif" alt="Grafico: '+n[1]+'" onerror="this.remove()">'}).join("")+'</details>';
+  var od=document.querySelector("details"),was=od&&od.open;
   document.getElementById("app").innerHTML=h;
+  if(was)document.querySelector("details").open=true;
 }
-fetch("data.json?"+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(render).catch(function(){render(FALLBACK)});
+var API=""; // indirizzo del Worker Cloudflare (dati in tempo reale)
+function getJ(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()})}
+function load(){
+  (API?getJ(API):Promise.reject()).catch(function(){return getJ("data.json?"+Date.now())}).then(render).catch(function(){render(FALLBACK)});
+}
+load();
+setInterval(load,30000);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)load()});
 </script>
 </body>
 </html>
