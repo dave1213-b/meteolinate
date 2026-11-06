@@ -155,9 +155,10 @@ function render(D){
   if(was)document.querySelector("details").open=true;
 }
 var API="https://api.github.com/repos/dave1213-b/meteolinate/contents/data.json?ref=dati";
+var RAW="https://raw.githubusercontent.com/dave1213-b/meteolinate/dati/data.json";
 function getJ(u,h){return fetch(u,h?{headers:h}:undefined).then(function(r){if(!r.ok)throw 0;return r.json()})}
 function load(){
-  getJ(API,{"Accept":"application/vnd.github.raw+json"}).catch(function(){return getJ("data.json?"+Date.now())}).then(render).catch(function(){render(FALLBACK)});
+  getJ(API,{"Accept":"application/vnd.github.raw+json"}).catch(function(){return getJ(RAW+"?t="+Date.now())}).catch(function(){return getJ("data.json?"+Date.now())}).then(render).catch(function(){render(FALLBACK)});
 }
 load();
 setInterval(load,60000);
