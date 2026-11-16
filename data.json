@@ -11,7 +11,7 @@
   "yMin": "-6.4"
  },
  "hum": {
-  "now": "73",
+  "now": "75",
   "max": "88",
   "maxT": "7:29",
   "min": "73",
@@ -22,7 +22,7 @@
   "yMin": "16"
  },
  "dew": {
-  "now": "6.9",
+  "now": "7.3",
   "max": "7.2",
   "maxT": "12:22",
   "min": "3.9",
@@ -33,54 +33,38 @@
   "yMin": "-10.0"
  },
  "press": {
-  "now": "1011.7",
+  "now": "1011.6",
   "max": "1016.5",
   "maxT": "0:08",
   "min": "1011.6",
-  "minT": "14:01",
+  "minT": "14:13",
   "mMax": "1028.6",
-  "mMin": "990.7",
-  "yMax": "1029.7",
-  "yMin": "986.7"
- },
- "heat": {
-  "now": "11.2",
-  "max": "11.7",
-  "maxT": "13:44",
-  "mMax": "16.1",
-  "yMax": "50.0"
- },
- "chill": {
-  "now": "10.3",
-  "min": "4.4",
-  "minT": "7:45",
-  "mMax": "3.9",
-  "yMax": "-7.2"
+  "mMin": "990.7"
  },
  "rain": {
-  "now": "0.0",
-  "event": "0.0",
-  "month": "52.6",
-  "year": "631.7"
+  "now": null,
+  "event": null,
+  "month": null,
+  "year": null
  },
  "rate": {
-  "now": "0.0",
-  "max": "0.0",
-  "hour": "0.0",
-  "year": "292.6"
+  "now": null,
+  "max": null,
+  "hour": null,
+  "year": null
  },
  "wind": {
-  "now": "11.3",
-  "dir": "W",
-  "max": "20.9",
-  "maxT": "12:48",
-  "avg": "11.3",
-  "gustM": "35.4",
-  "gustY": "70.8"
+  "now": null,
+  "dir": null,
+  "max": null,
+  "maxT": null,
+  "avg": null,
+  "gustM": null,
+  "gustY": null
  },
- "time": "14:09",
+ "time": "14:11",
  "date": "16/11/26",
  "sunrise": "7:25",
  "sunset": "16:52",
- "fetched": "2026-11-16T13:10:53+00:00"
+ "fetched": "2026-11-16T13:11:59+00:00"
 }
